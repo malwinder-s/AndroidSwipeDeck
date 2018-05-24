@@ -18,20 +18,25 @@ package com.wardrobe.app.controller.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import com.wardrobe.app.R
 import com.wardrobe.app.controller.adapter.SwipeDeckAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.view.View
+import com.wardrobe.app.controller.adapter.TrouserDeckAdapter
+import com.wardrobe.app.controller.swipe.SwipeStack
 
 class MainActivity : AppCompatActivity() {
 
     private val mShirtAdapter = SwipeDeckAdapter(null, this)
-    private val mTrouserAdapter = SwipeDeckAdapter(null, this)
+    private val mTrouserAdapter = TrouserDeckAdapter(null, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setListeners()
 
         swipe_deck_shirt.adapter =mShirtAdapter
 
@@ -41,9 +46,21 @@ class MainActivity : AppCompatActivity() {
 //        swipe_deck_trouser.setAdapter(adapter1)
     }
 
-    fun randomizeClothes() {
+    private fun getBitmapFromAssets(fileName: String): Bitmap {
+        val istr = assets.open(fileName)
+        return BitmapFactory.decodeStream(istr)
+    }
+
+    public fun randomizeClothes(v: View) {
         val random = Random()
-        mShirtAdapter.addCloth()
+
+        mShirtAdapter.clearData()
+        mShirtAdapter.addCloth(getBitmapFromAssets("s"+random.nextInt(5)+".webp"))
+        ivShirt.visibility = View.GONE
+
+        mTrouserAdapter.clearData()
+        mTrouserAdapter.addCloth(getBitmapFromAssets("t"+random.nextInt(5)+".webp"))
+        ivTrouser.visibility = View.GONE
     }
 
 /*
@@ -55,4 +72,57 @@ class MainActivity : AppCompatActivity() {
                 "\nClick \uD83D\uDD04 for surprise!", ToolTip.POSITION_ABOVE)
         ToolTipsManager().show(builder.build())
     }*/
+
+    private fun setListeners() {
+
+        swipe_deck_shirt.setListener(object : SwipeStack.SwipeStackListener {
+            /**
+             * Called when a view has been dismissed to the left.
+             *
+             * @param position The position of the view in the adapter currently in use.
+             */
+            override fun onViewSwipedToLeft(position: Int) {
+            }
+
+            /**
+             * Called when a view has been dismissed to the right.
+             *
+             * @param position The position of the view in the adapter currently in use.
+             */
+            override fun onViewSwipedToRight(position: Int) {
+            }
+
+            /**
+             * Called when the last view has been dismissed.
+             */
+            override fun onStackEmpty() {
+                ivShirt.visibility = View.VISIBLE
+            }
+        })
+
+        swipe_deck_trouser.setListener(object : SwipeStack.SwipeStackListener {
+            /**
+             * Called when a view has been dismissed to the left.
+             *
+             * @param position The position of the view in the adapter currently in use.
+             */
+            override fun onViewSwipedToLeft(position: Int) {
+            }
+
+            /**
+             * Called when a view has been dismissed to the right.
+             *
+             * @param position The position of the view in the adapter currently in use.
+             */
+            override fun onViewSwipedToRight(position: Int) {
+            }
+
+            /**
+             * Called when the last view has been dismissed.
+             */
+            override fun onStackEmpty() {
+                ivTrouser.visibility = View.VISIBLE
+            }
+        })
+    }
 }

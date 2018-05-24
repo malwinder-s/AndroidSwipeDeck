@@ -1,6 +1,7 @@
 package com.wardrobe.app.controller.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,23 @@ import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import com.wardrobe.app.R
 
-class TrouserDeckAdapter(private val data: List<Int>?, private val context: Context) : BaseAdapter() {
+class TrouserDeckAdapter(private var data: ArrayList<Bitmap>?, private val context: Context) : BaseAdapter() {
 
     override fun getCount(): Int {
         return data?.size ?: 0
+    }
+
+    fun addCloth(bmp: Bitmap) {
+        if (data==null) {
+            data = ArrayList()
+        }
+        data!!.add(bmp)
+        notifyDataSetChanged()
+    }
+
+    fun clearData() {
+        data = null
+        notifyDataSetChanged()
     }
 
     override fun getItem(position: Int): Any {
@@ -32,8 +46,9 @@ class TrouserDeckAdapter(private val data: List<Int>?, private val context: Cont
         }
 
         val iv = view!!.findViewById<ImageView>(R.id.ivCloth)
+        iv.setImageBitmap(data!![position])
 
-        Picasso.get().load(data!![position]).fit().centerCrop().into(iv)
+//        Picasso.get().load(data!![position]).fit().centerCrop().into()
         return view
     }
 }

@@ -417,6 +417,10 @@ public class SwipeStack extends ViewGroup {
         requestLayout();
     }
 
+    public void setListener() {
+
+    }
+
     /**
      * Interface definition for a callback to be invoked when the top view was
      * swiped to the left / right or when the stack gets empty.

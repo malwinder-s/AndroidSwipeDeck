@@ -2,16 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:clickable="false"
+    android:focusable="false"
     android:layout_height="match_parent">
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:layout_marginBottom="25dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:clickable="true"
+        android:layout_marginBottom="8dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:id="@+id/ivCloth"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        android:focusable="true" />
 
 </RelativeLayout>

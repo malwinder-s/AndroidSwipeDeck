@@ -1,25 +1,25 @@
 package com.wardrobe.app.controller.adapter
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import com.squareup.picasso.Picasso
 import com.wardrobe.app.R
 
-class SwipeDeckAdapter(private var data: ArrayList<Int>?, private val context: Context) : BaseAdapter() {
+class SwipeDeckAdapter(private var data: ArrayList<Bitmap>?, private val context: Context) : BaseAdapter() {
 
     override fun getCount(): Int {
         return data?.size ?: 0
     }
 
-    fun addCloth(id: Int) {
+    fun addCloth(bmp: Bitmap) {
         if (data==null) {
             data = ArrayList()
         }
-        data!!.add(id)
+        data!!.add(bmp)
         notifyDataSetChanged()
     }
 
@@ -41,12 +41,13 @@ class SwipeDeckAdapter(private var data: ArrayList<Int>?, private val context: C
         if (view == null) {
             val inflater = LayoutInflater.from(context)
             // normally use a viewholder
-            view = inflater.inflate(R.layout.cloth, parent, false)
+            view = inflater.inflate(R.layout.shirt, parent, false)
         }
 
         val iv = view!!.findViewById<ImageView>(R.id.ivCloth)
+        iv.setImageBitmap(data!![position])
 
-        Picasso.get().load(data!![position]).fit().centerCrop().into(iv)
+//        Picasso.get().load(data!![position]).fit().centerCrop().into()
         return view
     }
 }
