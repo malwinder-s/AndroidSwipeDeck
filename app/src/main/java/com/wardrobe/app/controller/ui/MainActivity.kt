@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
@@ -18,6 +17,7 @@ import com.wardrobe.app.R
 import com.wardrobe.app.controller.adapter.ShirtDeckAdapter
 import com.wardrobe.app.controller.adapter.TrouserDeckAdapter
 import com.wardrobe.app.controller.interfaces.SimpleSwipeListener
+import com.wardrobe.app.controller.utils.BitmapUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -39,22 +39,16 @@ class MainActivity : AppCompatActivity() {
         swipe_deck_trouser.adapter = mTrouserAdapter
     }
 
-    private fun getBitmapFromAssets(fileName: String): Bitmap {
-        val istr = assets.open(fileName)
-        return BitmapFactory.decodeStream(istr)
-    }
-
     fun randomizeClothes(v: View) {
         val random = Random()
 
         mShirtAdapter.clearData()
-        mShirtAdapter.addClothAndGetData(getBitmapFromAssets("s" + random.nextInt(5) + ".webp"))
-        ivShirt.visibility = View.INVISIBLE
+        mShirtAdapter.addClothAndGetData((BitmapUtils(assets).getBitmapFromAssets( "s" + random.nextInt(5) + ".webp")))
+        ivShirt.visibility = View . INVISIBLE
 
         mTrouserAdapter.clearData()
-        mTrouserAdapter.addClothAndGetData(getBitmapFromAssets("t" + random.nextInt(5) + ".webp"))
-        ivTrouser.visibility = View.INVISIBLE
-
+        mTrouserAdapter . addClothAndGetData (BitmapUtils(assets).getBitmapFromAssets("t" + random.nextInt(5) + ".webp"))
+        ivTrouser . visibility = View . INVISIBLE
         resetStacks()
     }
 
@@ -192,7 +186,7 @@ class MainActivity : AppCompatActivity() {
                         mShirtAdapter.notifyDataSetChanged()
                     }
                     REQUEST_GALLERY_ADD_SHIRT -> {
-                        val dataLocal = mShirtAdapter.addClothAndGetData(MediaStore.Images.Media.getBitmap(this.contentResolver,data!!.data))
+                        val dataLocal = mShirtAdapter.addClothAndGetData(MediaStore.Images.Media.getBitmap(this.contentResolver, data!!.data))
                         swipe_deck_shirt.resetStack()
                         mShirtAdapter.data = dataLocal
                         mShirtAdapter.notifyDataSetChanged()
@@ -204,7 +198,7 @@ class MainActivity : AppCompatActivity() {
                         mTrouserAdapter.notifyDataSetChanged()
                     }
                     REQUEST_GALLERY_ADD_TROUSER -> {
-                        val dataLocal = mTrouserAdapter.addClothAndGetData(MediaStore.Images.Media.getBitmap(this.contentResolver,data!!.data))
+                        val dataLocal = mTrouserAdapter.addClothAndGetData(MediaStore.Images.Media.getBitmap(this.contentResolver, data!!.data))
                         swipe_deck_shirt.resetStack()
                         mTrouserAdapter.data = dataLocal
                         mTrouserAdapter.notifyDataSetChanged()

@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.widget.BaseAdapter
 
 abstract class ClothAdapter : BaseAdapter() {
-    public var data = ArrayList<Bitmap>()
+    var data = ArrayList<Bitmap>()
 
     override fun getCount(): Int {
         return data.size

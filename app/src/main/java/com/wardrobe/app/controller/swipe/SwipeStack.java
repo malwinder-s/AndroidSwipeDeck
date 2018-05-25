@@ -140,6 +140,10 @@ public class SwipeStack extends ViewGroup {
         super.onRestoreInstanceState(state);
     }
 
+    public Adapter getAdapter() {
+        return mAdapter;
+    }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
@@ -306,15 +310,6 @@ public class SwipeStack extends ViewGroup {
     }
 
     /**
-     * Returns the adapter currently in use in this SwipeStack.
-     *
-     * @return The adapter currently used to display data in this SwipeStack.
-     */
-    public Adapter getAdapter() {
-        return mAdapter;
-    }
-
-    /**
      * Sets the data behind this SwipeView.
      *
      * @param adapter The Adapter which is responsible for maintaining the
@@ -338,16 +333,6 @@ public class SwipeStack extends ViewGroup {
     }
 
     /**
-     * Sets the allowed swipe directions.
-     *
-     * @param directions One of {@link #SWIPE_DIRECTION_BOTH},
-     *                   {@link #SWIPE_DIRECTION_ONLY_LEFT}, or {@link #SWIPE_DIRECTION_ONLY_RIGHT}.
-     */
-    public void setAllowedSwipeDirections(int directions) {
-        mAllowedSwipeDirections = directions;
-    }
-
-    /**
      * Register a callback to be invoked when the user has swiped the top view
      * left / right or when the stack gets empty.
      *
@@ -358,51 +343,12 @@ public class SwipeStack extends ViewGroup {
     }
 
     /**
-     * Register a callback to be invoked when the user starts / stops interacting
-     * with the top view of the stack.
-     *
-     * @param listener The callback that will run
-     */
-    public void setSwipeProgressListener(@Nullable SwipeProgressListener listener) {
-        mProgressListener = listener;
-    }
-
-    /**
-     * Get the view from the top of the stack.
-     *
-     * @return The view if the stack is not empty or null otherwise.
-     */
-    public View getTopView() {
-        return mTopView;
-    }
-
-    /**
-     * Programmatically dismiss the top view to the right.
-     */
-    public void swipeTopViewToRight() {
-        if (getChildCount() == 0) return;
-        mSwipeHelper.swipeViewToRight();
-    }
-
-    /**
-     * Programmatically dismiss the top view to the left.
-     */
-    public void swipeTopViewToLeft() {
-        if (getChildCount() == 0) return;
-        mSwipeHelper.swipeViewToLeft();
-    }
-
-    /**
      * Resets the current adapter position and repopulates the stack.
      */
     public void resetStack() {
         mCurrentViewIndex = 0;
         removeAllViewsInLayout();
         requestLayout();
-    }
-
-    public void setListener() {
-
     }
 
     /**
