@@ -4,16 +4,16 @@ import android.graphics.Bitmap
 import android.widget.BaseAdapter
 
 abstract class ClothAdapter : BaseAdapter() {
-    protected var data = ArrayList<Bitmap>()
+    public var data = ArrayList<Bitmap>()
 
     override fun getCount(): Int {
         return data.size
     }
 
-    fun addCloth(bmp: Bitmap) {
-        data.add(bmp)
-        data.reverse()
+    fun addClothAndGetData(bmp: Bitmap): ArrayList<Bitmap> {
+        data.add(0, bmp)
         notifyDataSetChanged()
+        return data
     }
 
     fun clearData() {

@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
         val random = Random()
 
         mShirtAdapter.clearData()
-        mShirtAdapter.addCloth(getBitmapFromAssets("s" + random.nextInt(5) + ".webp"))
+        mShirtAdapter.addClothAndGetData(getBitmapFromAssets("s" + random.nextInt(5) + ".webp"))
         ivShirt.visibility = View.INVISIBLE
 
         mTrouserAdapter.clearData()
-        mTrouserAdapter.addCloth(getBitmapFromAssets("t" + random.nextInt(5) + ".webp"))
+        mTrouserAdapter.addClothAndGetData(getBitmapFromAssets("t" + random.nextInt(5) + ".webp"))
         ivTrouser.visibility = View.INVISIBLE
 
         resetStacks()
@@ -185,10 +185,30 @@ class MainActivity : AppCompatActivity() {
         if (requestCode in REQUEST_CAMERA_ADD_SHIRT..REQUEST_GALLERY_ADD_TROUSER) {
             if (resultCode == RESULT_OK) {
                 when (requestCode) {
-                    REQUEST_CAMERA_ADD_SHIRT -> mShirtAdapter.addCloth(data!!.extras.get("data") as Bitmap)
-                    REQUEST_GALLERY_ADD_SHIRT -> mShirtAdapter.addCloth(MediaStore.Images.Media.getBitmap(this.contentResolver,data!!.data))
-                    REQUEST_CAMERA_ADD_TROUSER -> mTrouserAdapter.addCloth(data!!.extras.get("data") as Bitmap)
-                    REQUEST_GALLERY_ADD_TROUSER -> mTrouserAdapter.addCloth(MediaStore.Images.Media.getBitmap(this.contentResolver,data!!.data))
+                    REQUEST_CAMERA_ADD_SHIRT -> {
+                        val dataLocal = mShirtAdapter.addClothAndGetData(data!!.extras.get("data") as Bitmap)
+                        swipe_deck_shirt.resetStack()
+                        mShirtAdapter.data = dataLocal
+                        mShirtAdapter.notifyDataSetChanged()
+                    }
+                    REQUEST_GALLERY_ADD_SHIRT -> {
+                        val dataLocal = mShirtAdapter.addClothAndGetData(MediaStore.Images.Media.getBitmap(this.contentResolver,data!!.data))
+                        swipe_deck_shirt.resetStack()
+                        mShirtAdapter.data = dataLocal
+                        mShirtAdapter.notifyDataSetChanged()
+                    }
+                    REQUEST_CAMERA_ADD_TROUSER -> {
+                        val dataLocal = mTrouserAdapter.addClothAndGetData(data!!.extras.get("data") as Bitmap)
+                        swipe_deck_trouser.resetStack()
+                        mTrouserAdapter.data = dataLocal
+                        mTrouserAdapter.notifyDataSetChanged()
+                    }
+                    REQUEST_GALLERY_ADD_TROUSER -> {
+                        val dataLocal = mTrouserAdapter.addClothAndGetData(MediaStore.Images.Media.getBitmap(this.contentResolver,data!!.data))
+                        swipe_deck_shirt.resetStack()
+                        mTrouserAdapter.data = dataLocal
+                        mTrouserAdapter.notifyDataSetChanged()
+                    }
                 }
             }
         }
