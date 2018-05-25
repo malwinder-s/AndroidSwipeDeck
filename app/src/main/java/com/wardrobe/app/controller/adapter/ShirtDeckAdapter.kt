@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.wardrobe.app.R
 
-class TrouserDeckAdapter : ClothAdapter() {
+class ShirtDeckAdapter : ClothAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view = convertView
         if (view == null) {
             val inflater = LayoutInflater.from(parent.context)
-            view = inflater.inflate(R.layout.trouser, parent, false)
+            view = inflater.inflate(R.layout.shirt, parent, false)
         }
 
         val iv = view!!.findViewById<ImageView>(R.id.ivCloth)

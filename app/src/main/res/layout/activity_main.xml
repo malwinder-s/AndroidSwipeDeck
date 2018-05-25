@@ -15,33 +15,72 @@
         android:id="@+id/ivShirt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginStart="112dp"
         android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/shirt" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/ibShuffle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/round_bg_btn"
         android:elevation="2dp"
         android:onClick="randomizeClothes"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivShirt"
         app:srcCompat="@drawable/ic_shuffle_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/ibAddShirt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/round_bg_btn"
+        android:elevation="2dp"
+        android:onClick="addShirt"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintStart_toEndOf="@+id/ivShirt"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/ibAddTrouser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        app:srcCompat="@drawable/ic_add_black_24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/round_bg_btn"
+        android:elevation="2dp"
+        android:onClick="addTrouser"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.677"
+        app:layout_constraintStart_toEndOf="@+id/ivTrouser"
+        app:layout_constraintTop_toBottomOf="@+id/ibAddShirt"
+        app:layout_constraintVertical_bias="0.993"/>
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -50,15 +89,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/ibShuffle"
+        app:layout_constraintVertical_bias="0.528"
         app:srcCompat="@drawable/jeans"
         tools:ignore="ContentDescription" />
 
@@ -78,41 +115,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
 
-    <com.wardrobe.app.controller.swipe.SwipeStack
-        android:id="@+id/swipe_deck_shirt"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:layout_marginBottom="8dp"
-        android:clickable="false"
-        android:focusable="false"
-        app:layout_constraintBottom_toTopOf="@+id/swipe_deck_trouser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_weight="1" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.wardrobe.app.controller.swipe.SwipeStack
-        android:id="@+id/swipe_deck_trouser"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:clickable="false"
-        android:focusable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/swipe_deck_shirt"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintVertical_weight="1" />
+        <com.wardrobe.app.controller.swipe.SwipeStack
+            android:id="@+id/swipe_deck_shirt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"/>
 
+        <com.wardrobe.app.controller.swipe.SwipeStack
+            android:id="@+id/swipe_deck_trouser"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
